@@ -23,6 +23,9 @@ export default function App() {
     } catch (e) {}
   }, [toCompress]);
 
+  const handleCopy = async (data: string) => {
+    await window.navigator.clipboard.writeText(data);
+  };
   return (
     <>
       <div>
@@ -33,10 +36,16 @@ export default function App() {
           onChange={(event) => setToDecompress(event.target.value)}
         ></textarea>
       </div>
-      <SyntaxHighlighter>
-        {decompressed ? JSON.stringify(JSON.parse(decompressed), null, 3) : ""}
-      </SyntaxHighlighter>
-
+      {decompressed && (
+        <div className="json-container">
+          <button onClick={() => handleCopy(decompressed)}>Copy</button>
+          <SyntaxHighlighter>
+            {decompressed
+              ? JSON.stringify(JSON.parse(decompressed), null, 3)
+              : ""}
+          </SyntaxHighlighter>
+        </div>
+      )}
       <div>
         <h1>Compress data</h1>
         <textarea
@@ -45,7 +54,12 @@ export default function App() {
           onChange={(event) => setToCompress(event.target.value)}
         ></textarea>
       </div>
-      <SyntaxHighlighter>{compressed ? compressed : ""}</SyntaxHighlighter>
+      {compressed && (
+        <div className="json-container">
+          <button onClick={() => handleCopy(compressed)}>Copy</button>
+          <SyntaxHighlighter>{compressed}</SyntaxHighlighter>
+        </div>
+      )}
     </>
   );
 }
