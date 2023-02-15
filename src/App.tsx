@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { decompressLZW, compressLZW } from "./utils";
-import "./styles.css";
+import "./App.css";
 
 export default function App() {
   const [toDecompres, setToDecompress] = useState<string>("");
